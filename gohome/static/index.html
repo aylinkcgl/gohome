@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>GoHome</title>
+    <script type="text/javascript" src="/js/d3.v3.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="/js/gohome.js"></script>
+    <script type="text/javascript">
+    babel = babelweb();
+    window.onload = function() {
+      babel.init();
+      babel.connect('');
+    }
+    </script>
+    <!--<script type="text/javascript" src="/js/site-local.js"></script> -->
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+
+
+  </head>
+  <body>
+      <h1>GoHome</h1>
+      <h2>Routers</h2>
+      <div id="fig">
+      <p class="legend">
+      <span class="legend-title">Legend</span>
+      <span class="legend-current">Current</span>
+      <span class="legend-neighbour">Neighbours</span>
+      <span class="legend-other">Others</span>
+      </p>
+      </div>
+    <h3>Configuration</h3>
+    <p>
+    <label for="nodes">Current node:</label>
+    <select id="nodes"
+      onChange="babel.setCurrent(this.options[this.selectedIndex].value);">
+      <option value="unknown" selected>none</option>
+    </select><br>
+    <input type="checkbox" id="show_all" checked onClick="babel.redisplay();" >
+    <label for="show_all">Show uninstalled routes</label><br>
+    <input type="checkbox" id="logscale" checked onClick="babel.redisplay();" >
+    <label for="logscale">Logarithmic scale</label><br>
+    <input type="button" value="Randomize" onClick="babel.randomizeNodes();" >
+    <input type="button" value="Zoom in" onClick="babel.zoomIn(1.5);" >
+    <input type="button" value="Zoom out" onClick="babel.zoomOut(1.5);" >
+    </p>
+    <p>Updates : <span id="updates">0</span>.
+       State: <span id="state" class="bad">disconnected</span>.</p>
+<h2>Neighbours</h2>
+<table id="neighbour" frame="border" rules="all">
+    <thead>
+    <tr>
+    <th>Ip</th>
+    <th>Zone</th>
+    <th>Id</th>
+    <th>Eid</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr class="loading">
+           <td colspan="0" align = "center">loading</td>
+        </tr>
+    </tbody>
+</table>
+<p class="legend">
+<span class="legend-title">Legend</span>
+<span class="legend-wiredLink">Wired link (96)</span>
+<span class="legend-losslessWireless">Lossless wireless link (256)</span>
+<span class="legend-unreachableNeighbour">Unreachable (65535)</span> <br>
+(based on <tt>rxcost</tt>; colors are interpolated logarithmically)
+</p>
+
+<h2>Routers</h2>
+<table id="route" frame="border" rules="all">
+    <thead>
+    <tr>
+    <th>Id</th>
+    <th>Hash</th>
+    <th class="Peer">Peer</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr class="loading">
+           <td colspan="0" align = "center">loading</td>
+        </tr>
+    </tbody>
+</table>
+<p class="legend">
+<span class="legend-title">Legend</span>
+<span class="legend-installed">Installed</span>
+<span class="legend-uninstalled">Not installed</span>
+<span class="legend-unreachable">Unreachable (<tt>metric</tt> 65535)</span>
+</p>
+
+<h2>Redistributed routes</h2>
+<table id="xroute" frame="border" rules="all">
+    <thead>
+    <tr>
+        <th>prefix</th>
+        <th>metric</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr class="loading">
+           <td colspan="0" align = "center">loading</td>
+        </tr>
+    </tbody>
+</table>
+  </body>
+</html>
